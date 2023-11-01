@@ -136,6 +136,12 @@ class _StartsScreenViewState extends State<StartsScreenView> {
             fontSize: 16,
             text: 'Next step',
             onPressed: () async {
+              if (provider.isAddSender || provider.isAddRecipient) {
+                provider.setIsAddSender(false);
+                provider.setIsAddRecipien(false);
+                return;
+              }
+
               context.read<FormCubit>().onSubmit();
               provider.setIsAddSender(true);
               provider.setIsAddRecipien(true);
