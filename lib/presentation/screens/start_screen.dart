@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:reto/confiig/theme/app_theme.dart';
-import 'package:reto/cubit/form_cubit_sender/form_cubit.dart';
+import 'package:reto/presentation/providers/cubit/form_cubit/form_cubit.dart';
 import 'package:reto/presentation/providers/provider_principal.dart';
 import 'package:reto/presentation/widgets/button_color.dart';
 import 'package:reto/presentation/widgets/buttons_part.dart';
@@ -32,9 +32,7 @@ class StartScreen extends StatelessWidget {
 }
 
 class StartsScreenView extends StatefulWidget {
-  const StartsScreenView({
-    super.key,
-  });
+  const StartsScreenView({super.key});
 
   @override
   State<StartsScreenView> createState() => _StartsScreenViewState();
@@ -64,10 +62,10 @@ class _StartsScreenViewState extends State<StartsScreenView> {
     String startDate =
         '${dateFormat.format(selectedDate)}, ${dateFormatYear.format(selectedDate)}';
 
-    final provider = Provider.of<ProvidrPrincipal>(context);
+    final provider = Provider.of<ProviderPrincipal>(context);
 
     return SingleChildScrollView(
-        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+        child: Column(children: [
       const Divider(
         color: AppTheme.gray,
         thickness: 0.5,
@@ -75,19 +73,14 @@ class _StartsScreenViewState extends State<StartsScreenView> {
       const SizedBox(height: 5),
       Text('Step 1', style: Theme.of(context).textTheme.bodySmall),
       Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        color: Colors.white,
-        child: Column(
-          children: [
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          color: Colors.white,
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Padding(
               padding: const EdgeInsets.only(top: 15, bottom: 5),
-              child: Row(
-                children: [
-                  Text('Start date',
-                      style: Theme.of(context).textTheme.titleSmall),
-                  const Spacer()
-                ],
-              ),
+              child: Text('Start date',
+                  style: Theme.of(context).textTheme.titleSmall),
             ),
             CustomTextFormField(
               label: startDate,
@@ -101,12 +94,9 @@ class _StartsScreenViewState extends State<StartsScreenView> {
               ),
               colorIcon: AppTheme.grayDark,
             ),
-            const SizedBox(height: 15),
-          ],
-        ),
-      ),
+            const SizedBox(height: 15)
+          ])),
       const SizedBox(height: 15),
-      //-------------------------------------------------
       ButtonsPart(
           isPressed: provider.isAddSender,
           title: 'Sender details',
@@ -140,21 +130,19 @@ class _StartsScreenViewState extends State<StartsScreenView> {
               ),
               SizedBox(height: 15)
             ]),
-
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: ButtonColor(
-          fontSize: 16,
-          text: 'Next step',
-          onPressed: () {
-            context.read<FormCubit>().onSubmit();
-          },
-          colorButton: AppTheme.orange,
-          heigthButton: 52,
-          minWidthButton: double.infinity,
-          radius: 50,
-        ),
-      ),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: ButtonColor(
+            fontSize: 16,
+            text: 'Next step',
+            onPressed: () {
+              context.read<FormCubit>().onSubmit();
+            },
+            colorButton: AppTheme.orange,
+            heigthButton: 52,
+            minWidthButton: double.infinity,
+            radius: 50,
+          )),
       const SizedBox(height: 35),
     ]));
   }

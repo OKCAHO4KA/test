@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class ProvidrPrincipal extends ChangeNotifier {
+class ProviderPrincipal extends ChangeNotifier {
   bool isAddSender = true;
   bool isAddRecipient = true;
 

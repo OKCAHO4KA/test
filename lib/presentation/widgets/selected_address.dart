@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:reto/confiig/theme/app_theme.dart';
-import 'package:reto/cubit/form_cubit_sender/form_cubit.dart';
+import 'package:reto/presentation/providers/cubit/form_cubit/form_cubit.dart';
+import 'package:reto/presentation/providers/provider_principal.dart';
 import 'package:reto/presentation/widgets/custom_input.dart';
 
 class SelectedAddress extends StatelessWidget {
@@ -14,6 +15,7 @@ class SelectedAddress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ProviderPrincipal>(context);
     final formCubits = context.read<FormCubit>().state;
     return Column(
       children: [
@@ -28,7 +30,7 @@ class SelectedAddress extends StatelessWidget {
             ),
           ),
         ),
-        formCubits.fullName != ''
+        (formCubits.fullName != '')
             ? Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -52,28 +54,40 @@ class SelectedAddress extends StatelessWidget {
                                 .copyWith(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w400)),
-                        trailing: SvgPicture.asset(
-                          'assets/svg/edit.svg',
+                        trailing: GestureDetector(
+                          onTap: () {
+                            provider.setIsAddSender(true);
+                          },
+                          child: SvgPicture.asset(
+                            'assets/svg/edit.svg',
+                          ),
                         ),
                       )
-                    : ListTile(
-                        title: Text(formCubits.fullNameRecipient,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .copyWith(color: Colors.white)),
-                        subtitle: Text(
-                            '${formCubits.countryRecipient} , ${formCubits.cityRecipient}, ${formCubits.addressLine1Recipient}, ${formCubits.postCodeRecipient}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400)),
-                        trailing: SvgPicture.asset(
-                          'assets/svg/edit.svg',
-                        ),
-                      ))
+                    : (formCubits.fullNameRecipient != '')
+                        ? ListTile(
+                            title: Text(formCubits.fullNameRecipient,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(color: Colors.white)),
+                            subtitle: Text(
+                                '${formCubits.countryRecipient} , ${formCubits.cityRecipient}, ${formCubits.addressLine1Recipient}, ${formCubits.postCodeRecipient}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w400)),
+                            trailing: GestureDetector(
+                              onTap: () {
+                                provider.setIsAddRecipien(true);
+                              },
+                              child: SvgPicture.asset(
+                                'assets/svg/edit.svg',
+                              ),
+                            ),
+                          )
+                        : Container())
             : Container()
       ],
     );

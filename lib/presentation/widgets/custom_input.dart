@@ -48,10 +48,6 @@ class CustomTextFormField extends StatelessWidget {
               fontWeight: FontWeight.w400,
               color: AppTheme.grayDark,
               fontFamily: 'Roboto'),
-
-          // icon: const Icon(Icons.person),
-          // prefixIcon: const Icon(Icons.person),
-          // suffixIcon: const Icon(Icons.person),
           errorText: errorMensage),
     );
   }

@@ -1,6 +1,6 @@
 part of 'form_cubit.dart';
 
-class FormCubitStateSender extends Equatable {
+class FormCubitState extends Equatable {
   final String fullName;
   final String fullNameRecipient;
 
@@ -25,7 +25,7 @@ class FormCubitStateSender extends Equatable {
   final String postCode;
   final String postCodeRecipient;
 
-  const FormCubitStateSender(
+  const FormCubitState(
       {this.fullNameRecipient = '',
       this.emailRecipient = '',
       this.phoneNumberRecipient = '',
@@ -43,7 +43,7 @@ class FormCubitStateSender extends Equatable {
       this.addressLine2 = '',
       this.postCode = ''});
 
-  FormCubitStateSender copyWith(
+  FormCubitState copyWith(
           {String? fullName,
           String? fullNameRecipient,
           String? email,
@@ -60,7 +60,7 @@ class FormCubitStateSender extends Equatable {
           String? addressLine2Recipient,
           String? postCode,
           String? postCodeRecipient}) =>
-      FormCubitStateSender(
+      FormCubitState(
           fullName: fullName ?? this.fullName,
           fullNameRecipient: fullNameRecipient ?? this.fullNameRecipient,
           email: email ?? this.email,

@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 
 part 'form_cubit_state.dart';
 
-class FormCubit extends Cubit<FormCubitStateSender> {
-  FormCubit() : super(const FormCubitStateSender());
+class FormCubit extends Cubit<FormCubitState> {
+  FormCubit() : super(const FormCubitState());
 
   void onSubmit() {
     print('submit $state');

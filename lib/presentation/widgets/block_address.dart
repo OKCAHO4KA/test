@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:reto/confiig/theme/app_theme.dart';
-import 'package:reto/cubit/form_cubit_sender/form_cubit.dart';
+import 'package:reto/presentation/providers/cubit/form_cubit/form_cubit.dart';
 import 'package:reto/presentation/providers/provider_principal.dart';
 import 'package:reto/presentation/widgets/item_textformfield.dart';
 
@@ -23,7 +23,8 @@ class _BlockAddressState extends State<BlockAddress> {
   Widget build(BuildContext context) {
     final registerCubit = context.watch<FormCubit>();
 
-    final provider = Provider.of<ProvidrPrincipal>(context);
+    final provider = Provider.of<ProviderPrincipal>(context);
+
     return Container(
         color: Colors.white,
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
@@ -32,6 +33,15 @@ class _BlockAddressState extends State<BlockAddress> {
           child: widget.isSender
               ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   ItemTextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Required field';
+                      }
+                      if (value.trim().isEmpty) return 'Required field';
+                      if (value.length < 3) return "More than 3 letters";
+
+                      return null;
+                    },
                     label: registerCubit.state.fullName,
                     title: 'Full name*',
                     onChanged: (value) {
@@ -40,8 +50,21 @@ class _BlockAddressState extends State<BlockAddress> {
                     },
                     icon: Icons.person_sharp,
                   ),
-
                   ItemTextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Required field';
+                      }
+                      if (value.trim().isEmpty) return 'Required field';
+
+                      final emailRegExp = RegExp(
+                        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                      );
+                      if (!emailRegExp.hasMatch(value)) {
+                        return 'Does not have email format';
+                      }
+                      return null;
+                    },
                     typeKeyboard: TextInputType.emailAddress,
                     label: registerCubit.state.email,
                     title: 'Email*',
@@ -51,8 +74,15 @@ class _BlockAddressState extends State<BlockAddress> {
                     },
                     icon: Icons.email,
                   ),
-
                   ItemTextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Required field';
+                        }
+                        if (value.trim().isEmpty) return 'Required field';
+
+                        return null;
+                      },
                       typeKeyboard: TextInputType.phone,
                       label: registerCubit.state.phoneNumber,
                       title: 'Phone number*',
@@ -61,8 +91,15 @@ class _BlockAddressState extends State<BlockAddress> {
                         _formKey.currentState!.validate();
                       },
                       icon: Icons.phone),
-
                   ItemTextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Required field';
+                        }
+                        if (value.trim().isEmpty) return 'Required field';
+
+                        return null;
+                      },
                       label: registerCubit.state.country,
                       title: 'Country*',
                       onChanged: (value) {
@@ -70,7 +107,6 @@ class _BlockAddressState extends State<BlockAddress> {
                         _formKey.currentState!.validate();
                       },
                       icon: Icons.location_on_sharp),
-
                   ItemTextFormField(
                       label: registerCubit.state.city,
                       title: 'City*',
@@ -81,8 +117,15 @@ class _BlockAddressState extends State<BlockAddress> {
                       prefixIcon: Padding(
                           padding: const EdgeInsets.all(12.0),
                           child: SvgPicture.asset('assets/svg/city.svg'))),
-
                   ItemTextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Required field';
+                        }
+                        if (value.trim().isEmpty) return 'Required field';
+
+                        return null;
+                      },
                       label: registerCubit.state.addressLine1,
                       onChanged: (value) {
                         registerCubit.address1Changed(value);
@@ -90,7 +133,6 @@ class _BlockAddressState extends State<BlockAddress> {
                       },
                       title: 'Address line 1*',
                       icon: CupertinoIcons.map_pin),
-                  //-------------------------------
                   if (provider.isAddLineAddressPushed == true)
                     ItemTextFormField(
                         label: registerCubit.state.addressLine2,
@@ -100,7 +142,6 @@ class _BlockAddressState extends State<BlockAddress> {
                           _formKey.currentState!.validate();
                         },
                         icon: CupertinoIcons.map_pin),
-
                   GestureDetector(
                     onTap: () {
                       provider.addLineAddress();
@@ -119,8 +160,15 @@ class _BlockAddressState extends State<BlockAddress> {
                               fontWeight: FontWeight.w500)),
                     ),
                   ),
-
                   ItemTextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Required field';
+                        }
+                        if (value.trim().isEmpty) return 'Required field';
+
+                        return null;
+                      },
                       label: registerCubit.state.postCode,
                       typeKeyboard: TextInputType.number,
                       title: 'Postcode*',
@@ -136,6 +184,15 @@ class _BlockAddressState extends State<BlockAddress> {
                 ])
               : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   ItemTextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Required field';
+                      }
+                      if (value.trim().isEmpty) return 'Required field';
+                      if (value.length < 3) return "More than 3 letters";
+
+                      return null;
+                    },
                     label: registerCubit.state.fullNameRecipient,
                     title: 'Full name*',
                     onChanged: (value) {
@@ -146,6 +203,20 @@ class _BlockAddressState extends State<BlockAddress> {
                   ),
 
                   ItemTextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Required field';
+                      }
+                      if (value.trim().isEmpty) return 'Required field';
+
+                      final emailRegExp = RegExp(
+                        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                      );
+                      if (!emailRegExp.hasMatch(value)) {
+                        return 'Does not have email format';
+                      }
+                      return null;
+                    },
                     typeKeyboard: TextInputType.emailAddress,
                     label: registerCubit.state.emailRecipient,
                     title: 'Email*',
@@ -157,6 +228,14 @@ class _BlockAddressState extends State<BlockAddress> {
                   ),
 
                   ItemTextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Required field';
+                        }
+                        if (value.trim().isEmpty) return 'Required field';
+
+                        return null;
+                      },
                       typeKeyboard: TextInputType.phone,
                       label: registerCubit.state.phoneNumberRecipient,
                       title: 'Phone number*',
@@ -167,6 +246,14 @@ class _BlockAddressState extends State<BlockAddress> {
                       icon: Icons.phone),
 
                   ItemTextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Required field';
+                        }
+                        if (value.trim().isEmpty) return 'Required field';
+
+                        return null;
+                      },
                       label: registerCubit.state.countryRecipient,
                       title: 'Country*',
                       onChanged: (value) {
@@ -176,6 +263,14 @@ class _BlockAddressState extends State<BlockAddress> {
                       icon: Icons.location_on_sharp),
 
                   ItemTextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Required field';
+                        }
+                        if (value.trim().isEmpty) return 'Required field';
+
+                        return null;
+                      },
                       label: registerCubit.state.cityRecipient,
                       title: 'City*',
                       onChanged: (value) {
@@ -187,6 +282,14 @@ class _BlockAddressState extends State<BlockAddress> {
                           child: SvgPicture.asset('assets/svg/city.svg'))),
 
                   ItemTextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Required field';
+                        }
+                        if (value.trim().isEmpty) return 'Required field';
+
+                        return null;
+                      },
                       label: registerCubit.state.addressLine1Recipient,
                       onChanged: (value) {
                         registerCubit.address1RecipientChanged(value);
@@ -225,6 +328,14 @@ class _BlockAddressState extends State<BlockAddress> {
                   ),
 
                   ItemTextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Required field';
+                        }
+                        if (value.trim().isEmpty) return 'Required field';
+
+                        return null;
+                      },
                       label: registerCubit.state.postCodeRecipient,
                       typeKeyboard: TextInputType.number,
                       title: 'Postcode*',

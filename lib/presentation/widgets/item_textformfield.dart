@@ -11,15 +11,16 @@ class ItemTextFormField extends StatelessWidget {
     this.icon,
     this.label = '',
     this.typeKeyboard = TextInputType.text,
+    this.validator,
   });
 
   final String title;
   final String? label;
-
   final dynamic Function(String)? onChanged;
   final Widget? prefixIcon;
   final IconData? icon;
   final TextInputType? typeKeyboard;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,7 @@ class ItemTextFormField extends StatelessWidget {
           child: Text(title, style: Theme.of(context).textTheme.titleSmall),
         ),
         CustomTextFormField(
+          validator: validator,
           typeKeyboard: typeKeyboard,
           label: label,
           onChanged: (value) {
