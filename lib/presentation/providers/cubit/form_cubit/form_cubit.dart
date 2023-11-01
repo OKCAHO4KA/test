@@ -5,9 +5,12 @@ part 'form_cubit_state.dart';
 
 class FormCubit extends Cubit<FormCubitState> {
   FormCubit() : super(const FormCubitState());
-
-  void onSubmit() {
+  void onSubmit() async {
     print('submit $state');
+
+    await Future.delayed(const Duration(seconds: 1));
+
+    reset();
   }
 
   void fullNameChanged(String value) {
@@ -72,5 +75,25 @@ class FormCubit extends Cubit<FormCubitState> {
 
   void postCodeChanged(String value) {
     emit(state.copyWith(postCode: value));
+  }
+
+  void reset() {
+    emit(state.copyWith(
+        fullName: '',
+        fullNameRecipient: '',
+        email: '',
+        emailRecipient: '',
+        phoneNumber: '',
+        phoneNumberRecipient: '',
+        country: '',
+        countryRecipient: '',
+        city: '',
+        cityRecipient: '',
+        addressLine1: '',
+        addressLine1Recipient: '',
+        addressLine2: '',
+        addressLine2Recipient: '',
+        postCode: '',
+        postCodeRecipient: ''));
   }
 }

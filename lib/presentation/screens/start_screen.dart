@@ -135,8 +135,10 @@ class _StartsScreenViewState extends State<StartsScreenView> {
           child: ButtonColor(
             fontSize: 16,
             text: 'Next step',
-            onPressed: () {
+            onPressed: () async {
               context.read<FormCubit>().onSubmit();
+              provider.setIsAddSender(true);
+              provider.setIsAddRecipien(true);
             },
             colorButton: AppTheme.orange,
             heigthButton: 52,

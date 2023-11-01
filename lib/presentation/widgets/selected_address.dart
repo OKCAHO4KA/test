@@ -30,65 +30,75 @@ class SelectedAddress extends StatelessWidget {
             ),
           ),
         ),
-        (formCubits.fullName != '')
-            ? Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                decoration: BoxDecoration(
-                  color: AppTheme.black,
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                child: isSender
-                    ? ListTile(
-                        title: Text(formCubits.fullName,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .copyWith(color: Colors.white)),
-                        subtitle: Text(
-                            '${formCubits.country} , ${formCubits.city}, ${formCubits.addressLine1}, ${formCubits.postCode}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400)),
-                        trailing: GestureDetector(
-                          onTap: () {
-                            provider.setIsAddSender(true);
-                          },
-                          child: SvgPicture.asset(
-                            'assets/svg/edit.svg',
-                          ),
+        isSender
+            ? (formCubits.fullName != '')
+                ? Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                    decoration: BoxDecoration(
+                      color: AppTheme.black,
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    child: ListTile(
+                      title: Text(formCubits.fullName,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(color: Colors.white)),
+                      subtitle: Text(
+                          '${formCubits.country} , ${formCubits.city}, ${formCubits.addressLine1}, ${formCubits.postCode}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w400)),
+                      trailing: GestureDetector(
+                        onTap: () {
+                          provider.setIsAddSender(true);
+                        },
+                        child: SvgPicture.asset(
+                          'assets/svg/edit.svg',
                         ),
-                      )
-                    : (formCubits.fullNameRecipient != '')
-                        ? ListTile(
-                            title: Text(formCubits.fullNameRecipient,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall!
-                                    .copyWith(color: Colors.white)),
-                            subtitle: Text(
-                                '${formCubits.countryRecipient} , ${formCubits.cityRecipient}, ${formCubits.addressLine1Recipient}, ${formCubits.postCodeRecipient}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall!
-                                    .copyWith(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w400)),
-                            trailing: GestureDetector(
-                              onTap: () {
-                                provider.setIsAddRecipien(true);
-                              },
-                              child: SvgPicture.asset(
-                                'assets/svg/edit.svg',
-                              ),
-                            ),
-                          )
-                        : Container())
-            : Container()
+                      ),
+                    ))
+                : Container()
+            : (formCubits.fullNameRecipient != '')
+                ? Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                    decoration: BoxDecoration(
+                      color: AppTheme.black,
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    child: ListTile(
+                      title: Text(formCubits.fullNameRecipient,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(color: Colors.white)),
+                      subtitle: Text(
+                          '${formCubits.countryRecipient} , ${formCubits.cityRecipient}, ${formCubits.addressLine1Recipient}, ${formCubits.postCodeRecipient}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w400)),
+                      trailing: GestureDetector(
+                        onTap: () {
+                          provider.setIsAddRecipien(true);
+                        },
+                        child: SvgPicture.asset(
+                          'assets/svg/edit.svg',
+                        ),
+                      ),
+                    ))
+                : Container()
       ],
     );
   }
